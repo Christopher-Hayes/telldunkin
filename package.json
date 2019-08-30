@@ -1,0 +1,23 @@
+{
+  "name": "telldunkin",
+  "version": "1.0.0",
+  "description": "Streamlines the process of submitting a dunkin' review using the \"Free Donut\" reciept code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christopher-Hayes/telldunkin.git"
+  },
+  "author": "Chris Hayes",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Christopher-Hayes/telldunkin/issues"
+  },
+  "homepage": "https://github.com/Christopher-Hayes/telldunkin#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "puppeteer": "^1.19.0"
+  }
+}
