@@ -39,9 +39,9 @@ const getEmail = () => {
 (async() => {
   await getCode()
 
-  const browser = await puppeteer.launch({slowMo: 0, headless: false});
+  const browser = await puppeteer.launch({slowMo: 0, headless: true}) // change headless to false to show Chromium
   const page = await browser.newPage();
-  await page.goto('https://www.telldunkin.com/Index.aspx?LanguageID=US', {waitUntil: 'networkidle2'});
+  await page.goto('https://www.telldunkin.com/Index.aspx?LanguageID=US', {waitUntil: 'networkidle2'})
 
   // Code input page
   await page.keyboard.press('Tab')
