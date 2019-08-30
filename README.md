@@ -5,4 +5,4 @@ Streamlines the process of submitting a dunkin' review using the "Free Donut" re
      alt="GIF screenshot of program running with browser visible"/>
      
 
-Note: the gif is showing puppeteer in headless mode. By default puppeteer code is in headless mode, so no browser will typical be shown. This can be changed by setting `headless: true` on line 42.
+Note: the gif is showing puppeteer NOT in headless mode. By default puppeteer code will be in headless mode, so no browser will typical be shown. Turning off headless mode can help with debugging, this can be changed by setting `headless: true` on line 42.
