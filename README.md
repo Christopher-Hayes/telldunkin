@@ -1,7 +1,7 @@
 # telldunkin
 Streamlines the process of submitting a dunkin' review using the "Free Donut" reciept code.
 
-<img src="https://github.com/christopher-hayes/telldunkin/demo.gif"
+<img src="https://github.com/Christopher-Hayes/telldunkin/raw/master/telldunkin.gif"
      alt="GIF screenshot of program running with browser visible"/>
      
 
