@@ -1,9 +1,10 @@
 const puppeteer = require('puppeteer');
 
 code = ''
-// vvvvvvvvvvv Enter your email here
+
+// Enter EMAIL and FEEDBACK to skip CLI prompt
 email = ''
-// ^^^^^^^^^^^ Enter your email here
+feedback = ''
 
 // CLI input
 const readline = require('readline').createInterface({
@@ -25,7 +26,7 @@ const getCode = () => {
 const getEmail = () => {
   return new Promise((resolve, reject) => {
     if (email == '') {
-      readline.question(`Please enter the email that will receive the coupon: `, (em) => {
+      readline.question(`Email to receive coupon: `, (em) => {
         email = em
         resolve()
       })
@@ -35,6 +36,19 @@ const getEmail = () => {
   })
 }
 
+// Get feedback
+const getFeedback = () => {
+  return new Promise((resolve, reject) => {
+    if (feedback == '') {
+      readline.question(`Feedback (press enter for none): `, (fb) => {
+        feedback = fb
+        resolve()
+      })
+    } else {
+      resolve()
+    }
+  })
+}
  
 (async() => {
   await getCode()
@@ -58,7 +72,8 @@ const getEmail = () => {
   await page.waitFor('#NextButton')
   await page.$$eval('.Opt5', nodes => nodes.map(n => n.children[0].click()))
   await page.keyboard.press('Tab')
-  await page.keyboard.type('Great food and service!')
+  await getFeedback()
+  await page.keyboard.type(feedback)
   await page.keyboard.press('Tab')
   await page.keyboard.press('Enter')
 
