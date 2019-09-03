@@ -28,4 +28,4 @@ Next a prompt to give the email that you want your email sent to is shown. This 
      alt="GIF screenshot of program running with browser visible"/>
      
 
-Note: the gif is showing puppeteer NOT in headless mode. By default puppeteer code will be in headless mode, so no browser will typical be shown. Turning off headless mode can help with debugging, this can be changed by setting `headless: true` on line 42.
+Note: the gif is showing Chromium NOT running in headless mode. By default Chromium will be running in headless mode, so no browser window will be shown. Turning off headless mode can help with debugging, this can be changed by setting `headless: true` in index.js.
