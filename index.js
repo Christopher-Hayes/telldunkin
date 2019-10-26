@@ -53,20 +53,26 @@ const getFeedback = () => {
 (async() => {
   await getCode()
 
-  const browser = await puppeteer.launch({slowMo: 0, headless: false}) // change headless to false to show Chromium
+  // change headless to false to show Chromium
+  // slowMo is a delay (MS) between actions for debugging
+  const browser = await puppeteer.launch({slowMo: 0, headless: true }) 
   const page = await browser.newPage();
   await page.goto('https://www.telldunkin.com/Index.aspx?LanguageID=US', {waitUntil: 'networkidle2'})
 
   // Code input page
   await page.keyboard.press('Tab')
   await page.keyboard.type(code)
-  await page.keyboard.press('Enter')
+  await page.$eval('#NextButton', node => node.click())
+
+  // Drive thru
+  await page.waitFor('#NextButton')
+  await page.$eval('.Opt2 input', node => node.click())
+  await page.$eval('#NextButton', node => node.click())
 
   // Overall satisfaction
   await page.waitFor('#NextButton')
   await page.$$eval('.Opt5', nodes => nodes.map(n => n.children[0].click()))
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Enter')
+  await page.$eval('#NextButton', node => node.click())
 
   // Service/food
   await page.waitFor('#NextButton')
@@ -74,8 +80,7 @@ const getFeedback = () => {
   await page.keyboard.press('Tab')
   await getFeedback()
   await page.keyboard.type(feedback)
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Enter')
+  await page.$eval('#NextButton', node => node.click())
 
   // Experience
   await page.waitFor('#NextButton')
@@ -85,50 +90,45 @@ const getFeedback = () => {
       nodes[k].children[0].click()
     }
   })
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Enter')
+  await page.$eval('#NextButton', node => node.click())
 
   // Retention
   await page.waitFor('#NextButton')
   await page.$$eval('.Opt5', nodes => nodes.map(n => n.children[0].click()))
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Enter')
+  await page.$eval('#NextButton', node => node.click())
 
   // Custom 1
   await page.waitFor('#NextButton')
   await page.$eval('.Opt2', node => node.children[0].click())
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Enter')
+  await page.$eval('#NextButton', node => node.click())
 
   // Custom 2
   await page.waitFor('#NextButton')
   await page.$eval('.Opt2', node => node.children[0].click())
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Enter')
+  await page.$eval('#NextButton', node => node.click())
 
-  // Dropdown questions
+  // What did you order dropdowns
   await page.waitFor('#NextButton')
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('ArrowDown')
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Enter')
+  await page.$$eval('.rbList select', nodes => {
+    for (var k=0; k < nodes.length; k++) {
+      nodes[k].value = '2'
+    }
+  });
+  await page.$eval('#NextButton', node => node.click())
+
+  // Perks program
+  await page.waitFor('#NextButton')
+  await page.$$eval('.rbList select', nodes => {
+    for (var k=0; k < nodes.length; k++) {
+      nodes[k].value = '2'
+    }
+  });
+  await page.$eval('#NextButton', node => node.click())
 
   // How to get code
   await page.waitFor('#NextButton')
   await page.$eval('.radioBranded', node => node.click())
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Enter')
+  await page.$eval('#NextButton', node => node.click())
 
   // Enter email
   await page.waitFor('#NextButton')
@@ -137,7 +137,6 @@ const getFeedback = () => {
   await page.keyboard.type(email)
   await page.keyboard.press('Tab')
   await page.keyboard.type(email)
-  await page.keyboard.press('Tab')
   await page.keyboard.press('Enter')
 
   await browser.close();
